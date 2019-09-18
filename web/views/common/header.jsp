@@ -5,16 +5,7 @@
 	// 아이디 저장 관련 프로세스
 	Member loginMember = (Member)session.getAttribute("loginMember");
 
-	// 쿠키 
-	Cookie[] cookies = request.getCookies();
-	String saveId = "";
-	if(cookies != null){
-	for(Cookie c : cookies){
-		if(c.getName().equals("saveId")){
-			saveId = c.getValue();
-		};
-	};
-	}
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -194,14 +185,16 @@
 										<li><a href="elements.html">Report complaints</a></li>
 									</ul>
 								</div></li>
-								<%if(loginMember == null) {%>
-									<li><a href="<%=request.getContextPath()%>/login">로그인</a></li>
-								<%} else { %>
+								<%if(loginMember != null) {%>
 									<li><%=((Member)session.getAttribute("loginMember")).getUserName() %>님 안녕하세요</li>
 									<li><a href="#">마이페이지</a></li>
-									<% if(loginMember.getUserId().equals("admin1")){ %>
+									<li><a href="<%=request.getContextPath() %>/logout">로그아웃</a>
+									<%if(loginMember.getUserId().equals("admin1")){ %>
 									<li><a href="#">관리자페이지</a></li>
-								<%} }%>
+								<%}} else { %>
+									<li><a href="<%=request.getContextPath()%>/login">로그인</a></li>
+								<%} %>
+								
 						</ul>
 					</nav>
 					<!--/ Navigation end -->
@@ -211,3 +204,10 @@
 			<!--/ Container end -->
 		</header>
 		<!--/ Header end -->
+		<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script>
+		// 창 닫혔을 때 logout 서블릿 실행
+			window.onunload = function(){
+				$.get("${request.getContextPath()}/logout");
+			}
+		</script>

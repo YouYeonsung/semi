@@ -15,4 +15,10 @@ public class MemberService {
 		Member m = dao.selectId(conn, id, pw);
 		return m;
 	}
+	
+	public Member selectOne(String id) {
+		Connection conn = getConnection();
+		Member m = dao.selectOne(conn, id);
+		return m;
+	}
 }

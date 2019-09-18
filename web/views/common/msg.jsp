@@ -9,7 +9,6 @@
 </head>
 <body>
 <%
-/* msg와 loc을 받아서 msg는 alert 창안에, loc은 getContextPath()뒤에 넣어줌 */
 String msg = (String)request.getAttribute("msg");
 String loc = (String)request.getAttribute("loc");
 String script = (String)request.getAttribute("script");

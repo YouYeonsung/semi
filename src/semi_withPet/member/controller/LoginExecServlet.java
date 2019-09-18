@@ -36,18 +36,20 @@ public class LoginExecServlet extends HttpServlet {
 		String id = request.getParameter("userId");
 		String pw = request.getParameter("userPw");
 		
-		// 아이디 저장 값 받아오기
+		// 아이디 저장 체크 값 받아오기
 		String saveId = request.getParameter("saveId");
 		
 		// 비지니스 로직
 		MemberService service = new MemberService();
 		Member m = service.selectId(id, pw);
 		
+		System.out.println(m);
+		
 		// view page 선택
 		String msg = "";
 		String loc = "/";
-		
-		if(m != null) {
+		String view = "/views/common/msg.jsp";
+		if(m.getUserId()!= null) {
 			// session에 로그인한 회원 데이터 저장
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", m);
@@ -69,14 +71,14 @@ public class LoginExecServlet extends HttpServlet {
 				response.addCookie(c);
 			}
 			
-			msg = "성공적으로 로그인되었습니다.";
 			response.sendRedirect(request.getContextPath());
 		} else {
 			msg = "로그인에 실패하였습니다. 다시 시도하세요.";
+			loc = "/login";
+			// msg.jsp로 안내
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
-			// msg.jsp로 안내
-			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			request.getRequestDispatcher(view).forward(request, response);
 		}
 	}
 

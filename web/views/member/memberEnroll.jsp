@@ -5,16 +5,18 @@
 	<div class="container">
 			<div class="container">
 				<h3>회원 정보 입력(1/2)</h3>
-				<form action="#" method="post" id="enroll_form">
+				<form action="<%=request.getContextPath() %>/member/memberEnrollEnd" method="post" id="enroll_form">
 					<div class="form-group has-feedback">
+
 						<label class="control-label" for="id">아이디</label>
-						<input class="form-control" type="text" name="id" id="id"/>
+						<input class="form-control" type="text" name="id" id="id" required/>
 						<span id="overlapErr" class="help-block">사용할 수 없는 아이디 입니다.</span>
+
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label" for="pwd">비밀번호</label>
-						<input class="form-control" type="password" name="pwd" id="pwd"/>
-						<span id="pwdRegErr" class="help-block">8글자 이상 입력하세요.</span>
+						<input class="form-control" type="password" name="pwd" id="pwd" required/>
+						<span id="pwdRegErr" class="help-block">6글자 이상 입력하세요.</span>
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label" for="rePwd">비밀번호 재확인</label>
@@ -25,12 +27,12 @@
 						<div class = "email-auto frm">
 							<div class="form-group has-feedback col-md-8">
 								<label class="control-label" for="email">이메일</label>
-								<input class="form-control" type="text" name="email" id="email" placeholder="withpet@withpet.com"/>
+								<input class="form-control" type="text" name="email" id="email" placeholder="withpet@withpet.com" required/>
 								<span id="emailErr" class="help-block">올바른 이메일 형식이 아닙니다. 다시 입력해 주세요.</span>
 							</div>
 							<div class="form-group has-feedback col-md-4">
 							</br>
-								<input type="button" class="btn btn-primary" name="" id="" value="메일전송" onclick=""/>
+								<input type="button" class="btn btn-primary" name="sendMail" id="sendMail" value="메일전송" onclick=""/>
 							</div>
 						</div>
 						<div class="form-group has-feedback col-md-8">
@@ -46,14 +48,13 @@
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label" for="phone">연락처</label>
-						<input class="form-control" type="phone" name="phone" id="phone" placeholder="(-없이)01012345678"/>
+						<input class="form-control" type="phone" name="phone" id="phone" placeholder="(-없이)01012345678" required/>
 						<span id="phoneErr" class="help-block">올바른 연락처 형식이 아닙니다. 다시 입력해 주세요.</span>
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label" for="address">주소</label>
-						<input type="text" class="form-control" name="zonecode" id="zonecode" placeholder="우편번호">
-						<input type="button" onclick="excuteSearchPostCode();" value="우편번호 찾기"/><br/>
-						<input type="text" class="form-control" name="roadaddress" id="roadaddress" placeholder="도로명주소">
+						<input type="text" class="form-control" name="roadaddress" id="roadaddress" placeholder="도로명주소" readonly>
+						<input type="button" onclick="excuteSearchPostCode();" value="주소 찾기"/><br/>
 						<span id="guide" style="color:#999;display:none"></span>
 						<input class="form-control" type="text" name="address_etc" id="address_etc" placeholder="상세주소"/>
 					</div>
@@ -72,45 +73,49 @@
 			function excuteSearchPostCode() {
 				new daum.Postcode({
 					oncomplete:function(data) {
-						$("#zonecode").val(data.zonecode);
+						// 창이 닫히면
+						// 도로명 주소로 전달
 						$("#roadaddress").val(data.roadAddress);
-						$("#jibunaddress").val(data.jibunAddress);
+						// 상세주소 포커싱
 						$("#address_etc").focus();
-						console.log(data);
 					}
 
 				}).open();
 
 				}
 
-			///////////////////회원가입 정규표현식/////////////////
+			///////////////////ajax + 회원가입 정규표현식/////////////////
 			//아이디 입력란에 keyup 이벤트가 일어 났을때 실행할 함수 등록 
-			$("#id").keyup(function(){
-				//입력한 문자열을 읽어온다.
-				var id=$(this).val();
-				//ajax 요청을 해서 서버에 전송한다.
-				$.ajax({
-					method:"post",
-					url:"/idCheck",
-					data:{inputId:id},
-					success:function(data){
-						var obj=JSON.parse(data);
-						if(obj.canUse){//사용 가능한 아이디 라면 
-							$("#overlapErr").hide();
-							// 성공한 상태로 바꾸는 함수 호출
-							successState("#id");
-							
-						}else{//사용 가능한 아이디가 아니라면 
-							$("#overlapErr").show();
-							errorState("#id");
-						}
-					}
-				});
-			});
+			$(function(){
+    		$('#id').keyup(function(){
+    			if($(this).val().trim().length>=6){
+    				var id=$(this).val();
+    				$.ajax({
+    					url:"<%=request.getContextPath()%>/member/checkId",
+    					data:{"id":id},
+    					dataType:"json",
+    					success: function(data){
+    						console.log(data);
+    						if(!data){
+    							//사용 가능한 아이디 라면 
+    							$("#overlapErr").hide();
+    							// 성공한 상태로 바꾸는 함수 호출
+    							successState("#id");
+    						} else {
+    							//사용 가능한 아이디가 아니라면 
+    							$("#overlapErr").show();
+    							errorState("#id");
+    						}
+    					}
+    				})
+    			}
+    		})
+    	})
+			
 			$("#pwd").keyup(function(){
 				var pwd=$(this).val();
 				// 비밀번호 검증할 정규 표현식
-				var reg=/^.{8,}$/;
+				var reg=/^.{6,}$/;
 				if(reg.test(pwd)){//정규표현식을 통과 한다면
 							$("#pwdRegErr").hide();
 							successState("#pwd");
@@ -122,16 +127,21 @@
 			$("#rePwd").keyup(function(){
 				var rePwd=$(this).val();
 				var pwd=$("#pwd").val();
+				console.log(rePwd);
+				console.log(pwd);
 				// 비밀번호 같은지 확인
-				if(rePwd == ""){
-					$("#rePwdErr").hide();
-					if(rePwd==pwd){//비밀번호 같다면
+				if(rePwd != ""){
+					if(rePwd==pwd){
+						//비밀번호 같다면
 						$("#rePwdErr").hide();
 						successState("#rePwd");
-					}else{//비밀번호 다르다면
+					}else{
+						//비밀번호 다르다면
 						$("#rePwdErr").show();
 						errorState("#rePwd");
 					}
+				} else {
+					$("#rePwdErr").hide();
 				}
 			});
 			$("#email").keyup(function(){
@@ -159,8 +169,8 @@
 				}
 			});
 			// 성공 상태로 바꾸는 함수
-			function successState(sel){
-				$(sel)
+			function successState(id){
+				$(id)
 				.parent()
 				.removeClass("has-error")
 				.addClass("has-success")
@@ -170,8 +180,8 @@
 							.removeAttr("disabled");
 			};
 			// 에러 상태로 바꾸는 함수
-			function errorState(sel){
-				$(sel)
+			function errorState(id){
+				$(id)
 				.parent()
 				.removeClass("has-success")
 				.addClass("has-error")
@@ -181,12 +191,11 @@
 							.attr("disabled","disabled");
 			};
 			// 입력하지 않았을 때는 안보이게 하는 함수
-			function vacantState(sel){
-				if($(".form-control").trim().val() == null){
+			$(function(){
+				if($("form-control").val()==null){
 					$(".help-block").hide();
-					$("#enroll_form button[type=submit]")
-								.attr("disabled","disabled");
+					$("#enroll_form button[type=submit]").attr("disabled","disabled");
 				}
-			};
+			});
 		</script> 
 <%@ include file="/views/common/footer.jsp"%>
