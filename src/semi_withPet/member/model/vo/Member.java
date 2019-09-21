@@ -7,6 +7,7 @@ public class Member {
 	private int memberNo;
 	private String userId;
 	private String userPwd;
+	private String userName;
 	private char grade;
 	private String area1;
 	private String area2;
@@ -21,12 +22,12 @@ public class Member {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Member(int memberNo, String userId, String userPwd, char grade, String area1, String area2, String phone,
-			String email, char haveDog, char reservation, int point, Date enrollDate) {
+	public Member(String userId, String userPwd, String userName, char grade, String area1, String area2,
+			String phone, String email, char haveDog, char reservation, int point, Date enrollDate) {
 		super();
-		this.memberNo = memberNo;
 		this.userId = userId;
 		this.userPwd = userPwd;
+		this.userName = userName;
 		this.grade = grade;
 		this.area1 = area1;
 		this.area2 = area2;
@@ -60,6 +61,14 @@ public class Member {
 
 	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public char getGrade() {
@@ -136,8 +145,9 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [memberNo=" + memberNo + ", userId=" + userId + ", userPwd=" + userPwd + ", grade=" + grade
-				+ ", area1=" + area1 + ", area2=" + area2 + ", phone=" + phone + ", email=" + email + ", haveDog="
-				+ haveDog + ", reservation=" + reservation + ", point=" + point + ", enrollDate=" + enrollDate + "]";
+		return "Member [memberNo=" + memberNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
+				+ ", grade=" + grade + ", area1=" + area1 + ", area2=" + area2 + ", phone=" + phone + ", email=" + email
+				+ ", haveDog=" + haveDog + ", reservation=" + reservation + ", point=" + point + ", enrollDate="
+				+ enrollDate + "]";
 	}
 }
