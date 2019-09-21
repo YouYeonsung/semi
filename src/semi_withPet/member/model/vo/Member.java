@@ -22,10 +22,9 @@ public class Member {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Member(int memberNo, String userId, String userPwd, String userName, char grade, String area1, String area2,
+	public Member(String userId, String userPwd, String userName, char grade, String area1, String area2,
 			String phone, String email, char haveDog, char reservation, int point, Date enrollDate) {
 		super();
-		this.memberNo = memberNo;
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.userName = userName;

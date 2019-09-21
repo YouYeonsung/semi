@@ -9,10 +9,10 @@
 </head>
 <body>
 <%
-String msg = (String)request.getAttribute("msg");
-String loc = (String)request.getAttribute("loc");
-String script = (String)request.getAttribute("script");
-session.setAttribute("isLogin", true);
+	String msg = (String)request.getAttribute("msg");
+	String loc = (String)request.getAttribute("loc");
+	String script = (String)request.getAttribute("script");
+	session.setAttribute("isLogin", true);
 %>
 	<script>
 		alert('<%=msg %>');
