@@ -7,7 +7,7 @@
 <section id="main-container">
 	<div class="container">
 		<h3>회원 정보 입력(1/2)</h3>
-		<form action="<%=request.getContextPath()%>/member/memberEnrollEnd"
+		<form action="<%=request.getContextPath()%>/memberEnrollEnd"
 			method="post" id="enroll_form">
 			<div class="form-group has-feedback">
 				<label class="control-label" for="id">아이디</label> <input
@@ -61,7 +61,7 @@
 <script src="https://kit.fontawesome.com/dcff5cba12.js"></script>
 <script>
 			function nextStep(){
-				location.href="<%=request.getContextPath()%>/member/memberEnrollEnd"
+				location.href="<%=request.getContextPath()%>/memberEnrollEnd"
 			}
 		
 			function excuteSearchPostCode() {
@@ -84,7 +84,7 @@
     			if($(this).val().trim().length>=6){
     				var id=$(this).val();
     				$.ajax({
-    					url:"<%=request.getContextPath()%>/member/checkId",
+    					url:"<%=request.getContextPath()%>/checkId",
 					data : {
 						"id" : id
 					},

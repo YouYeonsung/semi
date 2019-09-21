@@ -39,9 +39,9 @@
 					<div class="wrapper-container">
 						<span class="text-center">
 							<ul class="member_login_select">
-								<li><a href="<%=request.getContextPath() %>/member/findId" class="text-sm"> 아이디찾기 </a></li>
-								<li><a href="<%=request.getContextPath() %>/member/findPw" class="text-sm"> 비밀번호찾기 </a></li>
-								<li><a href="<%=request.getContextPath() %>/member/checkEmail" class="text-sm"> 회원가입 </a></li>
+								<li><a href="<%=request.getContextPath() %>/findId" class="text-sm"> 아이디찾기 </a></li>
+								<li><a href="<%=request.getContextPath() %>/findPw" class="text-sm"> 비밀번호찾기 </a></li>
+								<li><a href="<%=request.getContextPath() %>/checkEmail" class="text-sm"> 회원가입 </a></li>
 							</ul>
 						</span>
 					</div>

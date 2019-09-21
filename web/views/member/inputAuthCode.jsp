@@ -44,7 +44,7 @@
     	var serverCode = <%=authCode%>;
     		if(userCode == serverCode){
     			alert('인증성공');
-    			opener.document.location.href='<%=request.getContextPath()%>/member/memberEnroll?userMail=<%=userMail%>';
+    			opener.document.location.href='<%=request.getContextPath()%>/memberEnroll?userMail=<%=userMail%>';
     			window.close();
     		} else {
     			alert('인증코드를 잘 못 입력하셨습니다.');

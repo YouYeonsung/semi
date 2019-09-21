@@ -14,7 +14,7 @@ import semi_withPet.member.model.vo.Member;
 /**
  * Servlet implementation class MemberPWFindServlet
  */
-@WebServlet("/member/memberFindPw")
+@WebServlet("/memberFindPw")
 public class MemberPWFindServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,6 +35,7 @@ public class MemberPWFindServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		Member m = new MemberService().selectOne(id);
+		System.out.println(m);
 		String msg = "";
 		String loc = "";
 		String view = "";
@@ -44,9 +45,9 @@ public class MemberPWFindServlet extends HttpServlet {
 			target = m.getUserId();
 			
 			// 3가지 정보가 모두 일치하는 경우
-			if(id == m.getUserId() 
-					&& name == m.getUserName() 
-					&& email == m.getEmail()) {
+			if(id.equals(m.getUserId()) 
+					&& name.equals(m.getUserName()) 
+					&& email.equals(m.getEmail())) {
 				// 임시 비밀번호 생성
 				String temp = "";
 				for (int i = 0; i < 12; i++) {
@@ -75,6 +76,12 @@ public class MemberPWFindServlet extends HttpServlet {
 			 			request.setAttribute("msg", msg);
 			 			request.setAttribute("loc", loc);
 					}
+				} else {
+					msg = "정보가 일치하지 않습니다. 다시 시도하세요.";
+		 			view = "/views/common/msg.jsp";
+		 			loc = "/member/findPw";
+		 			request.setAttribute("msg", msg);
+		 			request.setAttribute("loc", loc);
 				}
 			} 
  		} else {

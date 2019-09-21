@@ -15,7 +15,7 @@ import semi_withPet.member.model.vo.Member;
 /**
  * Servlet implementation class MemberIDFindServlet
  */
-@WebServlet("/member/memberFindId")
+@WebServlet("/memberFindId")
 public class MemberIDFindServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

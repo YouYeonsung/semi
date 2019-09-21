@@ -44,7 +44,7 @@ public class SendMail {
 			msg.setRecipient(Message.RecipientType.TO, receiver);
 			
 			// 메일 관련 셋팅
-			msg.setSubject(purpose + "찾기 메일입니다.", "UTF-8"); // 보내는 메일 제목
+			msg.setSubject(purpose + " 안내 메일입니다.", "UTF-8"); // 보내는 메일 제목
 			msg.setText(purpose + " : " + target, "UTF-8"); // 인증코드
 			msg.setHeader("content-type", "text/html");
 			

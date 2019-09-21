@@ -15,7 +15,7 @@ import semi_withPet.member.model.service.MemberService;
 /**
  * Servlet implementation class MemberEnrollCheckId
  */
-@WebServlet("/member/checkId")
+@WebServlet("/checkId")
 public class MemberEnrollCheckId extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -193,7 +193,7 @@
 									<li><a href="#">관리자페이지</a></li>
 								<%}} else { %>
 									<li><a href="<%=request.getContextPath()%>/login">로그인</a></li>
-									<li><a href="<%=request.getContextPath()%>/member/checkEmail">회원가입</a>
+									<li><a href="<%=request.getContextPath()%>/checkEmail">회원가입</a>
 								<%} %>
 								
 						</ul>

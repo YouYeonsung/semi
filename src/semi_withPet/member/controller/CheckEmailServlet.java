@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CheckEmailDupleAuthServlet
  */
-@WebServlet("/member/checkEmail")
+@WebServlet("/checkEmail")
 public class CheckEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
