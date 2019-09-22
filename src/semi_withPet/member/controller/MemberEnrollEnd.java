@@ -14,7 +14,7 @@ import semi_withPet.member.model.vo.Member;
 /**
  * Servlet implementation class MemberEnrollEnd
  */
-@WebServlet("/memberEnrollEnd")
+@WebServlet(name="memberEnroll",urlPatterns="/memberEnrollEnd")
 public class MemberEnrollEnd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -60,7 +60,7 @@ public class MemberEnrollEnd extends HttpServlet {
 			loc = "/";
 		} else {
 			msg = "회원가입 실패. 다시 시도하세요.";
-			loc = "/member/memberEnroll?userMail="+email;
+			loc = "/memberEnroll?userMail="+email;
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);

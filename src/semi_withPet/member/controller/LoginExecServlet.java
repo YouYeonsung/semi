@@ -16,7 +16,7 @@ import semi_withPet.member.model.vo.Member;
 /**
  * Servlet implementation class LoginExecServlet
  */
-@WebServlet("/loginexec")
+@WebServlet(name="loginServlet", urlPatterns="/loginexec")
 public class LoginExecServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -49,7 +49,7 @@ public class LoginExecServlet extends HttpServlet {
 		String msg = "";
 		String loc = "/";
 		String view = "/views/common/msg.jsp";
-		if(m.getUserId()!= null) {
+		if(m != null) {
 			// session에 로그인한 회원 데이터 저장
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", m);

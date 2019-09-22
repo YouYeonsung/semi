@@ -7,7 +7,7 @@
 			<input type="text" name="name" id="name" placeholder="이름입력">
 			<input type="text" name="id" id="id" placeholder="아이디입력">
 			<input type="email" name="email" id="email" placeholder="이메일입력">
-			<input type="submit" value="아이디찾기">
+			<input type="submit" value="비밀번호찾기">
 		</form>
 	</div>
 	</section>

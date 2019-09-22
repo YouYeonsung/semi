@@ -20,6 +20,7 @@
 		<span id="duplicated"><%=userEmail %>은 이미 사용 중입니다</span>
 			<form action="<%=request.getContextPath() %>/emailcheck" name="checkEmail" method="post">
 			<input type="email" name="userEmail" placeholder="withpet@withpet.com">
+			<input type="submit" value="중복확인">
 		</form>
 	<%} else {%>
 		<span><%=userEmail %></span>해당 이메일은 사용가능합니다.
@@ -30,7 +31,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
         function authCode(){
-			location.href="<%=request.getContextPath()%>/member/sendMail?userMail=<%=userEmail%>";
+			location.href="<%=request.getContextPath()%>/sendMail?userMail=<%=userEmail%>";
         }
         
         function checkEmail(){

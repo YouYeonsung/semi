@@ -16,8 +16,7 @@ public class EncryptPasswordWrapper extends HttpServletRequestWrapper {
 	@Override
 	public String getParameter(String key) {
 		String value="";
-		
-		if(key != null && key.equals("password") || key.equals("nPw") || key.equals("cPw")) {
+		if(key != null && key.equals("pwd") || key.equals("nPw") || key.equals("cPw") || key.equals("userPw") || key.equals("temp")) {
 			value = getEncryptPw(super.getParameter(key));
 			System.out.println(value);
 		} else {

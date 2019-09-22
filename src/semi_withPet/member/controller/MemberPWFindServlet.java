@@ -1,12 +1,14 @@
 package semi_withPet.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.filter.EncryptPasswordWrapper;
 import semi_withPet.member.model.service.MemberService;
 import semi_withPet.member.model.service.SendMail;
 import semi_withPet.member.model.vo.Member;
@@ -54,17 +56,19 @@ public class MemberPWFindServlet extends HttpServlet {
 					temp += (char) ((Math.random() * 26) + 97);
 				}
 				System.out.println(temp);
+				
 				// DB에 저장 + 비밀번호 불러오기
-				int updatePw = new MemberService().updatePassword(id, temp);
+				int updatePw = new MemberService().updatePassword(id, target);
+				
 				if(updatePw > 0) {
 					// 메일로 전송
-					target = temp;
 					// 메일발송 객체
 					// purpose : 찾고자하는 종류(Id, pw)
 					// target : 찾은 종류의 대상값
 					// email : 전송할 이메일주소
 					// 찾은 결과는 1, -1을 리턴함
-					int result = new SendMail().sendMail(purpose, target, email);
+					int result = new SendMail().sendMail(purpose, temp, email);
+					
 					if(result > 0) {
 					view = "/views/member/findResult.jsp";
 					request.setAttribute("target", target);
@@ -79,7 +83,7 @@ public class MemberPWFindServlet extends HttpServlet {
 				} else {
 					msg = "정보가 일치하지 않습니다. 다시 시도하세요.";
 		 			view = "/views/common/msg.jsp";
-		 			loc = "/member/findPw";
+		 			loc = "/findPw";
 		 			request.setAttribute("msg", msg);
 		 			request.setAttribute("loc", loc);
 				}
